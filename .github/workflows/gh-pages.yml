@@ -1,35 +1,36 @@
-name: Build and Deploy Pelican site
+name: Build and Deploy CV
 
 on:
   push:
     branches:
-      - main  # или 'master', если ваша основная ветка называется так
+      - master  
   pull_request:
     branches:
-      - main
+      - master  
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pelican[markdown]
-          pip install ghp-import
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pelican[markdown]
+        pip install ghp-import
 
-      - name: Build the site
-        run: pelican content
+    - name: Build the site
+      run: pelican content  # Здесь происходит сборка сайта из содержимого папки content
 
-      - name: Deploy to GitHub Pages
-        run: |
-          ghp-import output
-          git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" gh-pages
+    - name: Deploy to GitHub Pages
+      run: |
+        ghp-import output  # Публикация файлов, собранных в папке output
+        git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" gh-pages
