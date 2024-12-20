@@ -1,6 +1,6 @@
 AUTHOR = 'Konovalov Sergei'
 SITENAME = 'My_CV'
-SITEURL = ""
+SITEURL = 'https://frezzz1.github.io/my_cv' 
 
 PATH = "content"
 
